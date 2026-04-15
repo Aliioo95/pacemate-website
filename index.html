@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PaceMate - Sim Racing Companion</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- HIGH-TECH GLASS DESIGN FARBEN & STRUKTUR --- */
+        :root {
+            --bg-base: #05050A;
+            --bg-glass: rgba(255, 255, 255, 0.03);
+            --border-glass: rgba(255, 255, 255, 0.08);
+            --accent-cyan: #00E5FF;
+            --accent-purple: #7B2CBF;
+            --discord-color: #5865F2; 
+            --text-light: #F8F9FA;
+            --text-dim: #A0AAB2;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-base);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative; 
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(0, 229, 255, 0.05), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(123, 44, 191, 0.05), transparent 25%);
+        }
+
+        /* Subtiles Logo im Hintergrund */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2; 
+            background-image: url('PACEMATEoBG.png'); 
+            background-repeat: no-repeat;
+            background-position: center 30vh; 
+            background-size: 50vmin auto; 
+            opacity: 0.08; 
+            filter: blur(1px); 
+        }
+
+        h1, h2, h3 { font-family: 'Poppins', sans-serif; }
+
+        /* --- GLASS HEADER --- */
+        header {
+            padding: 15px 5%;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            background: rgba(5, 5, 10, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-glass);
+        }
+
+        .logo {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 60px; 
+            width: auto;
+            border-radius: 6px;
+        }
+
+        /* Zentrierter Slogan im Header */
+        .header-center-text {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: var(--text-light);
+            text-align: center;
+            white-space: nowrap;
+        }
+        .header-center-text .dim { color: var(--text-dim); font-weight: 400; padding: 0 4px; }
+        .header-center-text .cyan { color: var(--accent-cyan); }
+
+        nav {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        nav a.nav-link {
+            color: var(--text-light);
+            text-decoration: none;
+            margin-left: 35px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+            white-space: nowrap;
+        }
+
+        nav a.nav-link:hover { color: var(--accent-cyan); }
+
+        nav a.nav-discord-btn {
+            background-color: var(--discord-color);
+            color: white;
+            text-decoration: none;
+            padding: 8px 24px;
+            border-radius: 50px;
+            margin-left: 35px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(88, 101, 242, 0.2);
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        nav a.nav-discord-btn:hover {
+            background-color: #4752C4;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(88, 101, 242, 0.4);
+            color: white;
+        }
+
+        /* --- BUTTONS --- */
+        .btn {
+            padding: 14px 32px;
+            background: linear-gradient(135deg, var(--accent-cyan), #0077ff);
+            color: #000;
+            text-decoration: none;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            border-radius: 50px;
+            transition: all 0.3s;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 229, 255, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 229, 255, 0.5);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: var(--accent-cyan);
+            border: 2px solid var(--accent-cyan);
+            box-shadow: none;
+        }
+
+        .btn-outline:hover {
+            background: rgba(0, 229, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .btn-discord {
+            background: var(--discord-color);
+            color: white;
+            box-shadow: 0 4px 15px rgba(88, 101, 242, 0.3);
+        }
+
+        .btn-discord:hover {
+            background: #4752C4;
+            box-shadow: 0 6px 20px rgba(88, 101, 242, 0.5);
+            color: white;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 10%;
+            margin-top: 60px;
+            position: relative; 
+            z-index: 1; 
+        }
+
+        .hero h1 { 
+            font-size: 4.5rem; 
+            font-weight: 800; 
+            margin-bottom: 20px; 
+            line-height: 1.1; 
+        }
+        
+        .gradient-text {
+            background: linear-gradient(to right, var(--accent-cyan), #b62cbf);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p { 
+            font-size: 1.25rem; 
+            color: var(--text-dim); 
+            max-width: 600px; 
+            margin-bottom: 40px; 
+        }
+
+        /* --- FEATURES BENTO-GRID --- */
+        .features { padding: 100px 5%; max-width: 1400px; margin: 0 auto; position: relative; z-index: 1;}
+        .section-header { text-align: center; margin-bottom: 70px; }
+        .section-header h2 { font-size: 2.8rem; }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .glass-card {
+            background: var(--bg-glass);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-glass);
+            border-radius: 20px;
+            padding: 35px;
+            transition: transform 0.3s, border-color 0.3s;
+            display: flex; 
+            flex-direction: column; 
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 229, 255, 0.4);
+        }
+
+        .glass-card h3 { font-size: 1.6rem; margin-bottom: 15px; color: white; }
+        .glass-card p { color: var(--text-dim); margin-bottom: 20px; font-size: 1rem; }
+
+        .img-placeholder {
+            width: 100%;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: auto; 
+            overflow: hidden;
+        }
+
+        .img-placeholder img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+        .tag {
+            background: rgba(0, 229, 255, 0.1);
+            color: var(--accent-cyan);
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        /* --- PRICING --- */
+        .pricing { padding: 100px 5%; position: relative; z-index: 1;}
+        .price-grid { 
+            display: flex; 
+            justify-content: center; 
+            gap: 40px; 
+            flex-wrap: wrap; 
+        }
+
+        .price-card {
+            background: var(--bg-glass);
+            border: 1px solid var(--border-glass);
+            border-radius: 24px;
+            padding: 50px 40px;
+            width: 350px;
+            text-align: left;
+            position: relative;
+        }
+
+        .price-card.popular {
+            background: linear-gradient(180deg, rgba(0, 229, 255, 0.05) 0%, rgba(255,255,255,0.02) 100%);
+            border-color: rgba(0, 229, 255, 0.3);
+        }
+
+        .badge {
+            position: absolute;
+            top: -15px;
+            right: 30px;
+            background: var(--accent-cyan);
+            color: #000;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.85rem;
+        }
+
+        .price-card h3 { font-size: 1.5rem; color: var(--text-dim); font-weight: 400;}
+        .price-card .price { font-size: 3.5rem; font-weight: 800; margin: 15px 0 30px; color: white;}
+        .price-card .price span { font-size: 1.1rem; color: var(--text-dim); font-weight: 400;}
+
+        .price-features { list-style: none; margin-bottom: 40px; }
+        .price-features li { margin-bottom: 15px; color: var(--text-light); display: flex; align-items: center;}
+        .price-features li::before { content: "●"; color: var(--accent-cyan); margin-right: 12px; font-size: 0.8rem; }
+
+        /* Listen-Stil für das Feature-Kästchen */
+        .feature-list { list-style: none; margin-top: 15px; margin-bottom: auto;}
+        .feature-list li { margin-bottom: 10px; color: var(--text-light); display: flex; align-items: flex-start; font-size: 0.95rem; }
+        .feature-list li::before { content: "✓"; color: var(--accent-cyan); margin-right: 12px; font-weight: bold; font-size: 1rem; }
+
+        /* --- BETA CTA --- */
+        .beta-banner {
+            max-width: 800px;
+            margin: 0 auto 100px;
+            background: rgba(123, 44, 191, 0.1);
+            border: 1px solid rgba(123, 44, 191, 0.3);
+            border-radius: 20px;
+            padding: 50px;
+            text-align: center;
+        }
+
+        .beta-banner h2 { margin-bottom: 15px; font-size: 2rem;}
+        
+        .beta-form {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .beta-form input {
+            padding: 15px 25px;
+            border-radius: 50px;
+            border: 1px solid var(--border-glass);
+            background: rgba(0,0,0,0.5);
+            color: white;
+            font-size: 1rem;
+            width: 300px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .beta-form input:focus { border-color: var(--accent-cyan); }
+
+        /* --- FOOTER --- */
+        footer { 
+            padding: 40px 5%; 
+            border-top: 1px solid var(--border-glass); 
+            display: flex; 
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            position: relative; z-index: 1;
+        }
+        
+        .footer-text { color: var(--text-dim); font-size: 0.9rem; }
+        .footer-links a { 
+            color: var(--text-dim); 
+            text-decoration: none; 
+            margin-left: 20px; 
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+        .footer-links a:hover { color: white; }
+
+        /* Mobile Adjustments */
+        @media (max-width: 1150px) {
+            .header-center-text { display: none; } 
+        }
+        @media (max-width: 900px) {
+            .bento-grid { grid-template-columns: 1fr; } 
+        }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 3rem; }
+            header { display: flex; flex-direction: column; gap: 15px; } 
+            nav { justify-content: center; flex-wrap: wrap; }
+            nav a.nav-link { margin: 0 10px; }
+            nav a.nav-discord-btn { margin-top: 10px; margin-left: 0; }
+            footer { flex-direction: column; gap: 20px; text-align: center; }
+            .footer-links a { margin: 0 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo">
+            <img src="PACEMATEoBG.png" alt="PaceMate Logo">
+        </a>
+        <div class="header-center-text">
+            PaceMate <span class="dim">- Dein</span> <span class="cyan">iRacing Companion</span>
+        </div>
+        <nav>
+            <a href="#features" class="nav-link">Features</a>
+            <a href="#pricing" class="nav-link">Preise</a>
+            <a href="#beta" class="nav-link">Beta Key</a>
+            <a href="https://discord.gg/H4zxvTvZef" target="_blank" class="nav-discord-btn">Discord</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Entfessle deine <br><span class="gradient-text">Wahre Pace.</span></h1>
+        <p>Premium Live-Telemetrie und intelligente Setup-Werkzeuge als unsichtbares Hochleistungs-Overlay für iRacing.</p>
+        <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;">
+            <a href="#beta" class="btn">Kostenlosen Beta Key holen</a>
+            <a href="#features" class="btn btn-outline">Features entdecken</a>
+            <a href="https://discord.gg/H4zxvTvZef" target="_blank" class="btn btn-discord">Community beitreten</a>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <div class="section-header">
+            <h2>Der digitale Renningenieur.</h2>
+        </div>
+
+        <div class="bento-grid">
+            
+            <div class="glass-card">
+                <div>
+                    <span class="tag">In-Game</span>
+                    <h3>Standard Overlays</h3>
+                    <p>Behalte deine Performance immer im Blick. Das Live-Speed-Delta zeigt dir sofort, ob du Zeit gewinnst (Grün) oder verlierst (Rot).</p>
+                    <p><strong>Das absolute Highlight:</strong> Das spezialisierte <strong>Live-Bremsdruck Fenster</strong>! Vergleiche deinen Input in Echtzeit mit der Referenzrunde, um deine Trailbraking-Technik auf das nächste Level zu heben.</p>
+                    <p>Alles ist <strong>komplett individuell anpassbar</strong>: Farben, Größe, Transparenz und Layout bestimmst nur du.</p>
+                    <ul class="feature-list">
+                        <li>Präzises Live-Speed-Delta</li>
+                        <li>Trailbraking-Analyse in Echtzeit</li>
+                        <li>G-Force Traction Circle</li>
+                        <li>Mini-Sektoren & Status-Anzeigen</li>
+                    </ul>
+                </div>
+                <div class="img-placeholder">
+                    <img src="overlay.png" alt="PaceMate Standard Overlays">
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <div>
+                    <span class="tag">Pro Setup</span>
+                    <h3>Mechanik Analyse</h3>
+                    <p>Überwache den Live-Federweg deiner Dämpfer wie ein echter Ingenieur.</p>
+                    <p>Der integrierte Hit-Counter zählt jeden Durchschlag (Bottoming-Out) gnadenlos mit, damit du dein Ride-Height-Limit millimetergenau ausreizen kannst.</p>
+                </div>
+                <div class="img-placeholder">
+                    <img src="daempfer.png" alt="PaceMate Setup Hit-Counter">
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <div>
+                    <span class="tag">Kompatibilität</span>
+                    <h3>Garage61 & .ibt Support</h3>
+                    <p>Importiere Referenzrunden direkt aus <strong>Garage61 (als CSV-Export)</strong> oder nutze die nativen <strong>.ibt Telemetrie-Dateien</strong> von iRacing.</p>
+                    <p>Lade einfach die schnelle Runde eines Pros herunter und PaceMate zeigt dir live auf der Strecke, an welchen Punkten du noch Zeit liegen lässt.</p>
+                    <ul class="feature-list">
+                        <li>Kein Abo bei externen Telemetrie-Diensten nötig</li>
+                        <li>Nahtlose Integration deiner bestehenden Daten</li>
+                        <li>Offline nutzbar mit lokalen .ibt Dateien</li>
+                        <li>Perfekt zum Analysieren deiner Fahrtechnik</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <div>
+                    <span class="tag">Intelligent</span>
+                    <h3>Smart Aero Overlay</h3>
+                    <p>Lies live deine Bodenfreiheit (Ride Height) und Fahrzeugneigung (Rake) ab.</p>
+                    <p><strong>Das Highlight:</strong> Falls iRacing die Aerodynamik-Telemetrie für dein Fahrzeugmodell blockiert, leitet unser Fallback-Algorithmus die exakte Bodenfreiheit nahtlos aus den Federwegen ab.</p>
+                </div>
+                <div class="img-placeholder">
+                    <img src="Rake.png" alt="PaceMate Aero Overlay">
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="beta">
+        <div class="beta-banner">
+            <h2>Closed Beta Phase</h2>
+            <p style="color: var(--text-dim); font-size: 1.1rem;">PaceMate befindet sich aktuell in der geschlossenen Beta. Trage deine E-Mail ein und wir senden dir sofort deinen kostenlosen Zugangs-Key zu.</p>
+            
+            <form class="beta-form" onsubmit="event.preventDefault(); alert('Verknüpfung zu Make.com / KeyAuth folgt!');">
+                <input type="email" placeholder="Deine beste E-Mail Adresse" required>
+                <button type="submit" class="btn">Key anfordern</button>
+            </form>
+        </div>
+    </section>
+
+    <section id="pricing" class="pricing">
+        <div class="section-header">
+            <h2>Transparente Preise. <br>Nach dem Release.</h2>
+        </div>
+        
+        <div class="price-grid">
+            
+            <div class="price-card">
+                <h3>Monatlich</h3>
+                <div class="price">1,99 €<span> / mtl.</span></div>
+                <ul class="price-features">
+                    <li>Jederzeit kündbar</li>
+                </ul>
+            </div>
+
+            <div class="price-card popular">
+                <div class="badge">Am Beliebtesten</div>
+                <h3 style="color: var(--accent-cyan);">Jährlich</h3>
+                <div class="price">19,99 €<span> / jahr</span></div>
+                <ul class="price-features">
+                    <li><strong>2 Monate komplett gespart</strong></li>
+                    <li>Jederzeit kündbar</li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-text">
+            &copy; 2026 PaceMate. iRacing ist eine eingetragene Marke von iRacing Motorsport Simulations, LLC.
+        </div>
+        <div class="footer-links">
+            <a href="agb.html">AGB</a>
+            <a href="datenschutz.html">Datenschutz</a>
+            <a href="impressum.html">Impressum</a>
+        </div>
+    </footer>
+
+</body>
+</html>
