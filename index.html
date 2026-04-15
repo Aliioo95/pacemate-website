@@ -33,7 +33,6 @@
                 radial-gradient(circle at 85% 30%, rgba(123, 44, 191, 0.05), transparent 25%);
         }
 
-        /* Subtiles Logo im Hintergrund */
         body::before {
             content: '';
             position: absolute;
@@ -52,7 +51,6 @@
 
         h1, h2, h3 { font-family: 'Poppins', sans-serif; }
 
-        /* --- GLASS HEADER --- */
         header {
             padding: 15px 5%;
             display: grid;
@@ -68,19 +66,9 @@
             border-bottom: 1px solid var(--border-glass);
         }
 
-        .logo {
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-        }
+        .logo { display: flex; justify-content: flex-start; align-items: center; }
+        .logo img { height: 60px; width: auto; border-radius: 6px; }
 
-        .logo img {
-            height: 60px; 
-            width: auto;
-            border-radius: 6px;
-        }
-
-        /* Zentrierter Slogan im Header */
         .header-center-text {
             font-family: 'Poppins', sans-serif;
             font-size: 1.1rem;
@@ -93,12 +81,7 @@
         .header-center-text .dim { color: var(--text-dim); font-weight: 400; padding: 0 4px; }
         .header-center-text .cyan { color: var(--accent-cyan); }
 
-        nav {
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-        }
-
+        nav { display: flex; justify-content: flex-end; align-items: center; }
         nav a.nav-link {
             color: var(--text-light);
             text-decoration: none;
@@ -108,7 +91,6 @@
             transition: color 0.3s;
             white-space: nowrap;
         }
-
         nav a.nav-link:hover { color: var(--accent-cyan); }
 
         nav a.nav-discord-btn {
@@ -126,7 +108,6 @@
             display: inline-flex;
             align-items: center;
         }
-
         nav a.nav-discord-btn:hover {
             background-color: #4752C4;
             transform: translateY(-2px);
@@ -134,7 +115,6 @@
             color: white;
         }
 
-        /* --- BUTTONS --- */
         .btn {
             padding: 14px 32px;
             background: linear-gradient(135deg, var(--accent-cyan), #0077ff);
@@ -179,7 +159,6 @@
             color: white;
         }
 
-        /* --- HERO SECTION --- */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -214,7 +193,6 @@
             margin-bottom: 40px; 
         }
 
-        /* --- FEATURES BENTO-GRID --- */
         .features { padding: 100px 5%; max-width: 1400px; margin: 0 auto; position: relative; z-index: 1;}
         .section-header { text-align: center; margin-bottom: 70px; }
         .section-header h2 { font-size: 2.8rem; }
@@ -273,7 +251,6 @@
             margin-bottom: 15px;
         }
 
-        /* --- PRICING --- */
         .pricing { padding: 100px 5%; position: relative; z-index: 1;}
         .price-grid { 
             display: flex; 
@@ -317,12 +294,10 @@
         .price-features li { margin-bottom: 15px; color: var(--text-light); display: flex; align-items: center;}
         .price-features li::before { content: "●"; color: var(--accent-cyan); margin-right: 12px; font-size: 0.8rem; }
 
-        /* Listen-Stil für das Feature-Kästchen */
         .feature-list { list-style: none; margin-top: 15px; margin-bottom: auto;}
         .feature-list li { margin-bottom: 10px; color: var(--text-light); display: flex; align-items: flex-start; font-size: 0.95rem; }
         .feature-list li::before { content: "✓"; color: var(--accent-cyan); margin-right: 12px; font-weight: bold; font-size: 1rem; }
 
-        /* --- BETA CTA --- */
         .beta-banner {
             max-width: 800px;
             margin: 0 auto 100px;
@@ -334,30 +309,7 @@
         }
 
         .beta-banner h2 { margin-bottom: 15px; font-size: 2rem;}
-        
-        .beta-form {
-            display: flex;
-            gap: 15px;
-            margin-top: 30px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
 
-        .beta-form input {
-            padding: 15px 25px;
-            border-radius: 50px;
-            border: 1px solid var(--border-glass);
-            background: rgba(0,0,0,0.5);
-            color: white;
-            font-size: 1rem;
-            width: 300px;
-            outline: none;
-            transition: border-color 0.3s;
-        }
-
-        .beta-form input:focus { border-color: var(--accent-cyan); }
-
-        /* --- FOOTER --- */
         footer { 
             padding: 40px 5%; 
             border-top: 1px solid var(--border-glass); 
@@ -378,13 +330,8 @@
         }
         .footer-links a:hover { color: white; }
 
-        /* Mobile Adjustments */
-        @media (max-width: 1150px) {
-            .header-center-text { display: none; } 
-        }
-        @media (max-width: 900px) {
-            .bento-grid { grid-template-columns: 1fr; } 
-        }
+        @media (max-width: 1150px) { .header-center-text { display: none; } }
+        @media (max-width: 900px) { .bento-grid { grid-template-columns: 1fr; } }
         @media (max-width: 768px) {
             .hero h1 { font-size: 3rem; }
             header { display: flex; flex-direction: column; gap: 15px; } 
@@ -417,8 +364,8 @@
         <h1>Entfessle deine <br><span class="gradient-text">Wahre Pace.</span></h1>
         <p>Premium Live-Telemetrie und intelligente Setup-Werkzeuge als unsichtbares Hochleistungs-Overlay für iRacing.</p>
         <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;">
-            <a href="#beta" class="btn">Kostenlosen Beta Key holen</a>
-            <a href="#features" class="btn btn-outline">Features entdecken</a>
+            <a href="https://tally.so/r/5BqBaQ" target="_blank" class="btn">Kostenlosen Beta Key holen</a>
+            <a href="https://github.com/Aliioo95/pacemate-website/releases/download/PaceMate/PaceMateSETUP.exe" class="btn btn-outline">Direkter Download</a>
             <a href="https://discord.gg/H4zxvTvZef" target="_blank" class="btn btn-discord">Community beitreten</a>
         </div>
     </section>
@@ -494,12 +441,9 @@
     <section id="beta">
         <div class="beta-banner">
             <h2>Closed Beta Phase</h2>
-            <p style="color: var(--text-dim); font-size: 1.1rem;">PaceMate befindet sich aktuell in der geschlossenen Beta. Trage deine E-Mail ein und wir senden dir sofort deinen kostenlosen Zugangs-Key zu.</p>
+            <p style="color: var(--text-dim); font-size: 1.1rem; margin-bottom: 30px;">PaceMate befindet sich aktuell in der geschlossenen Beta. Trage deine E-Mail ein und wir senden dir sofort deinen kostenlosen Zugangs-Key zu.</p>
             
-            <form class="beta-form" onsubmit="event.preventDefault(); alert('Verknüpfung zu Make.com / KeyAuth folgt!');">
-                <input type="email" placeholder="Deine beste E-Mail Adresse" required>
-                <button type="submit" class="btn">Key anfordern</button>
-            </form>
+            <a href="https://tally.so/r/abc123" target="_blank" class="btn" style="padding: 18px 40px; font-size: 1.1rem;">Jetzt Beta-Key anfordern</a>
         </div>
     </section>
 
